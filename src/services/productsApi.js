@@ -1,6 +1,6 @@
 const API_URL = 'http://127.0.0.1:8000/api/products';
 
-// GET - Obtener todos los productos
+
 export const getProducts = async () => {
   try {
     const response = await fetch(API_URL);
@@ -12,7 +12,7 @@ export const getProducts = async () => {
   }
 };
 
-// POST - Crear nuevo producto
+
 export const createProduct = async (product) => {
   try {
     const response = await fetch(API_URL, {
@@ -30,7 +30,7 @@ export const createProduct = async (product) => {
   }
 };
 
-// UPDATE - Actualizar producto
+
 export const updateProduct = async (id, product) => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
@@ -48,7 +48,7 @@ export const updateProduct = async (id, product) => {
   }
 };
 
-// DELETE - Eliminar producto
+
 export const deleteProduct = async (id) => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
