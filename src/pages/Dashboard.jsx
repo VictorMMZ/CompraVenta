@@ -60,9 +60,11 @@ export function Dashboard() {
         <div className="dashboard-alerts">
           <h2>⚠️ Productos sin stock</h2>
           <ul>
-            <li>Producto A</li>
-            <li>Producto B</li>
-            <li>Producto C</li>
+             {dashboardData?.productsOutOfStock?.map((product) => (
+                  <li key={product.id}>
+                    {product.name}
+                  </li>
+                ))}
           </ul>
         </div>
 
