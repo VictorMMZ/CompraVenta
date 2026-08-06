@@ -1,0 +1,95 @@
+.navbar {
+    background-color: #ffffff;
+    padding: 0.7rem 1.5rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    width: 100%;
+    min-height: 56px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    width: 100%;
+    min-height: 100%;
+    gap: 1rem;
+}
+
+/* Logo izquierda */
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+    height: 100%;
+}
+
+.navbar-logo-text {
+    height: 65px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.85;
+}
+
+/* Menu */
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 0.2rem;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.navbar-item {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-link {
+    color: #034420;
+    text-decoration: none;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.80rem;
+    letter-spacing: 0.3px;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+    white-space: nowrap;
+}
+
+.navbar-link:hover {
+    color: #d4af37;
+    background-color: rgba(212, 175, 55, 0.08);
+}
+
+.navbar-link.active {
+    color: #d4af37;
+    background: transparent;
+    border-bottom: 1.5px solid #d4af37;
+    border-radius: 0;
+}
+
+/* Usuario */
+.user-info {
+    flex-shrink: 0;
+    color: #6a9a82;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.78rem;
+    padding: 0 0.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.user-info p {
+    margin: 0;
+    white-space: nowrap;
+}

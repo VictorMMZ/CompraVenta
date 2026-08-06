@@ -1,0 +1,275 @@
+/* Contenedor principal */
+.form-purchase-container {
+    padding: 2rem;
+    font-family: Cambria, Georgia, serif;
+    min-height: 100vh;
+    background-color: #f4f1ec;
+}
+
+.form-purchase-container h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #03220f;
+    margin: 0 0 2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid #03220f;
+    letter-spacing: 1px;
+}
+
+/* Secciones */
+.purchase-form-section,
+.products-section,
+.product-form-section {
+    background-color: #fff;
+    border-radius: 10px;
+    border-top: 3px solid #d4af37;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.purchase-form-section h2,
+.products-section h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #03220f;
+    margin: 0 0 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid #ede9e0;
+}
+
+.product-form-section h3,
+.products-list h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #03220f;
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ede9e0;
+}
+
+/* Form groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+.purchase-form-section .form-group,
+.product-form-section .form-group {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form-group label {
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.85rem;
+    color: #555;
+    letter-spacing: 0.3px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.45rem 0.8rem;
+    border: 1.5px solid #c5bfb0;
+    border-radius: 5px;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.88rem;
+    color: #1a1a1a;
+    background-color: #faf8f4;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+/* Buscador de producto */
+.product-search {
+    margin-bottom: 1rem;
+}
+
+.product-search input {
+    width: 100%;
+    padding: 0.45rem 0.8rem;
+    border: 1.5px solid #c5bfb0;
+    border-radius: 5px;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.88rem;
+    background-color: #faf8f4;
+    color: #1a1a1a;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.product-search input:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+/* Tabla de productos */
+.products-list {
+    margin-bottom: 1rem;
+}
+
+.products-list table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.products-list thead {
+    background-color: #03220f;
+}
+
+.products-list thead th {
+    padding: 0.65rem 1rem;
+    text-align: center;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.products-list tbody tr {
+    border-bottom: 1px solid #ede9e0;
+    transition: background 0.15s;
+}
+
+.products-list tbody tr:last-child {
+    border-bottom: none;
+}
+
+.products-list tbody tr:hover {
+    background-color: #f7f3ea;
+}
+
+.products-list tbody td {
+    padding: 0.6rem 1rem;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.85rem;
+    color: #2a2a2a;
+    text-align: center;
+}
+
+/* Botones */
+.btn-add-product {
+    padding: 0.5rem 1.2rem;
+    background-color: #03220f;
+    color: #d4af37;
+    border: none;
+    border-radius: 5px;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-add-product:hover {
+    background-color: #d4af37;
+    color: #03220f;
+}
+
+.btn-remove {
+    padding: 0.25rem 0.7rem;
+    background-color: transparent;
+    border: 1px solid #9b2226;
+    border-radius: 4px;
+    color: #9b2226;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-remove:hover {
+    background-color: #9b2226;
+    color: #fff;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+    justify-content: flex-end;
+}
+
+.btn-confirm {
+    padding: 0.5rem 1.2rem;
+    background-color: #03220f;
+    color: #d4af37;
+    border: none;
+    border-radius: 5px;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-confirm:hover {
+    background-color: #d4af37;
+    color: #03220f;
+}
+
+.btn-cancel {
+    padding: 0.5rem 1.2rem;
+    background-color: transparent;
+    border: 1px solid #c5bfb0;
+    border-radius: 5px;
+    color: #555;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+    background-color: #ede9e0;
+}
+
+.btn-submit {
+    padding: 0.6rem 2rem;
+    background-color: #03220f;
+    color: #d4af37;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    letter-spacing: 0.5px;
+}
+
+.btn-submit:hover {
+    background-color: #d4af37;
+    color: #03220f;
+}

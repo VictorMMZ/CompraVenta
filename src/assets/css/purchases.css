@@ -1,0 +1,247 @@
+/* Purchases container */
+.purchases {
+    padding: 2rem;
+    font-family: Cambria, Georgia, serif;
+    min-height: 100vh;
+    background-color: #f4f1ec;
+}
+
+/* Header */
+.purchases-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #03220f;
+}
+
+.purchases-header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #03220f;
+    margin: 0 0 1rem;
+    letter-spacing: 1px;
+}
+
+/* Cards */
+.purchase-cards-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1100px) {
+    .purchase-cards-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .purchase-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Contenido tabla */
+.purchases-content {
+    margin-top: 1.5rem;
+}
+
+/* Buscador */
+.purchases-content label {
+    font-size: 0.85rem;
+    color: #555;
+    margin-right: 0.5rem;
+}
+
+.purchases-content button {
+    padding: 0.4rem 1rem;
+    background-color: #03220f;
+    color: #d4af37;
+    border: none;
+    border-radius: 5px;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin-bottom: 1rem;
+    margin-left: 0.5rem;
+}
+
+.purchases-content button:hover {
+    background-color: #d4af37;
+    color: #03220f;
+}
+
+/* Tabla */
+.purchases-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+}
+
+.purchases-table thead {
+    background-color: #ffffff;
+}
+
+.purchases-table thead th {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #d4af37;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.purchases-table tbody tr {
+    border-bottom: 1px solid #ede9e0;
+    transition: background 0.15s;
+}
+
+.purchases-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.purchases-table tbody tr:hover {
+    background-color: #f7f3ea;
+}
+
+.purchases-table tbody td {
+    padding: 0.7rem 1rem;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.88rem;
+    color: #2a2a2a;
+    text-align: center;
+}
+
+.purchases-table tbody td:nth-child(2) {
+    font-weight: 600;
+    color: #03220f;
+}
+
+/* Botón ver detalles */
+.purchases-table tbody td button {
+    padding: 0.3rem 0.8rem;
+    background-color: transparent;
+    border: 1px solid #03220f;
+    border-radius: 4px;
+    color: #03220f;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.80rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.purchases-table tbody td button:hover {
+    background-color: #03220f;
+    color: #d4af37;
+}
+
+/* Overlay */
+.modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+/* Modal */
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 520px;
+    max-width: 90%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #d4af37;
+    margin: 0;
+    padding: 1rem 1.2rem;
+    background-color: #03220f;
+    border-bottom: 2px solid #d4af37;
+}
+
+.modal-content h3 {
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 600;
+    margin: 0 0 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ede9e0;
+}
+
+.modal-content ul {
+    list-style: none;
+    margin: 0;
+    padding: 0.8rem 1.2rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-content ul li {
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.85rem;
+    color: #2a2a2a;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #ede9e0;
+}
+
+.modal-content ul li:last-child {
+    border-bottom: none;
+}
+
+.modal-content .close {
+    display: block;
+    width: fit-content;
+    margin: 0 1.2rem 1rem auto;
+    padding: 0.4rem 1rem;
+    background-color: transparent;
+    border: 1px solid #c5bfb0;
+    border-radius: 5px;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.82rem;
+    color: #555;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.modal-content .close:hover {
+    background-color: #ede9e0;
+}
+
+/* Search input */
+.search-input {
+    padding: 0.4rem 0.8rem;
+    border: 1.5px solid #c5bfb0;
+    border-radius: 5px;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.85rem;
+    background-color: #fff;
+    color: #1a1a1a;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.search-input:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
