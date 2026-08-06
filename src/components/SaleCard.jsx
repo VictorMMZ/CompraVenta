@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { dateFormatter } from "../services/dateformatter.js";
+import { dateFormatter } from "../utils/dateformatter.js";
 
 export function SaleCard({ sale }) {
     const [showModal, setShowModal] = useState(false);
