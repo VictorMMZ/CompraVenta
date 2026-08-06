@@ -1,8 +1,8 @@
 import { SaleCard } from "../components/SaleCard.jsx";
-import "../assets/sales.css";
+import "../assets/css/sales.css";
 import { useState, useEffect } from "react";
 import { getSales} from "../services/salesApi.js";
-import { dateFormatter } from "../services/dateformatter.js";
+import { dateFormatter } from "../utils/dateformatter.js";
 
 
 

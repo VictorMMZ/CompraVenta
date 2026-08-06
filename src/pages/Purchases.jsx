@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { getPurchases } from "../services/purchasesApi.js";
-import { dateFormatter } from "../services/dateformatter.js";
+import { dateFormatter } from "../utils/dateformatter.js";
 import { PurchaseCard } from "../components/PurchaseCard.jsx";
-import "../assets/purchases.css";
+import "../assets/css/purchases.css";
 
 export function Purchase() {
   const today = new Date().toISOString().split("T")[0];
