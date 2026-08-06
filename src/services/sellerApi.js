@@ -15,3 +15,21 @@ export const getSellerbyDocument = async (document) => {
     throw error;
   }
 };
+
+
+export const createSeller = async (sellerData) => {
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(sellerData)
+    });
+    if (!response.ok) throw new Error('Error al crear el vendedor');
+    return await response.json();
+  } catch (error) {
+    console.error('Error en POST:', error);
+    throw error;
+  }
+};
