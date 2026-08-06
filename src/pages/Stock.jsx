@@ -1,6 +1,6 @@
 import { getProducts } from "../services/productsApi.js";
 import { useState, useEffect } from "react";
-import "../assets/Stock.css";
+import "../assets/css/Stock.css";
 import {
   createProduct,
   updateProduct,
