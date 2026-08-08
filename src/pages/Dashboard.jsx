@@ -2,10 +2,44 @@ import "../assets/css/dashboard.css";
 import { InfoCard } from "../components/InfoCard";
 import { getDashboardData } from "../services/dashboardApi";
 import { useEffect, useState } from "react";
+import {createSeller} from "../services/sellerApi.js";
 
 export function Dashboard() {
 
   const [dashboardData, setDashboardData] = useState(null);
+  const [showSellerModal, setShowSellerModal] = useState(false);
+  const [sellerForm, setSellerForm] = useState({
+    name: "",
+    document_id: "",
+    phone: "",
+    notes: ""
+  });
+
+
+  function handleSellerFormChange(e) {
+    const { name, value } = e.target;
+    setSellerForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  function handleSellerFormSubmit() {
+    createSeller(sellerForm)
+      .then((response) => {
+        console.log("Vendedor creado:", response);
+        setShowSellerModal(false);
+        setSellerForm({
+          name: "",
+          document_id: "",
+          phone: "",
+          notes: ""
+        });
+      })
+      .catch((error) => {
+        console.error("Error al crear vendedor:", error);
+      });
+  }
 
   useEffect(() => {
     getDashboardData()
@@ -15,7 +49,7 @@ export function Dashboard() {
       .catch((error) => {
         console.error("Error al obtener datos del dashboard:", error);
       });
-  }, []); // <-- Add this line to close the useEffect hook
+  }, []); 
   
   return (
     <div className="dashboard">
@@ -25,9 +59,9 @@ export function Dashboard() {
       <div className="dashboard-content">
         {/* Métricas rápidas */}
         <div className="dashboard-cards">
-          <InfoCard title="Ventas hoy" value={dashboardData?.totalSalesToday ?? "Cargando..."} icon="📊" />
-          <InfoCard title="Compras hoy" value={dashboardData?.totalPurchasesToday ?? "Cargando..."} icon="🛒" />
-          <InfoCard title="Beneficio" value={dashboardData?.totalProfitToday ?? "Cargando..."} icon="💰" />
+          <InfoCard title="Ventas hoy" value={dashboardData?.totalSalesToday.toFixed(2) ?? "Cargando..."} icon="📊" />
+          <InfoCard title="Compras hoy" value={dashboardData?.totalPurchasesToday.toFixed(2) ?? "Cargando..."} icon="🛒" />
+          <InfoCard title="Beneficio" value={dashboardData?.totalProfitToday.toFixed(2) ?? "Cargando..."} icon="💰" />
           <InfoCard title="Stock bajo" value={dashboardData?.productsWithLowStock?.length ?? "Cargando..."} icon="⚠️" />
         </div>
 
@@ -68,10 +102,57 @@ export function Dashboard() {
           </ul>
         </div>
 
+
+  {showSellerModal && (
+    <div className="modal">
+     
+      <div className="modal-content">
+        <div className="modal-header">
+          <h2>Registrar Vendedor</h2>
+          <button className="modal-close" onClick={() => setShowSellerModal(false)}>X</button>
+        </div>
+        <label htmlFor="name">Nombre:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={sellerForm.name}
+          onChange={handleSellerFormChange}
+        />
+        <label htmlFor="document_id">Documento:</label>
+        <input
+          type="text"
+          id="document_id"
+          name="document_id"
+          value={sellerForm.document_id}
+          onChange={handleSellerFormChange}
+        />
+        <label htmlFor="phone">Teléfono:</label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          value={sellerForm.phone}
+          onChange={handleSellerFormChange}
+        />
+        <label htmlFor="notes">Notas:</label>
+        <textarea
+          id="notes"
+          name="notes"
+          value={sellerForm.notes}
+          onChange={handleSellerFormChange}
+        />
+
+           <button className="modal-add" onClick={handleSellerFormSubmit}>Añadir</button>
+      </div>
+   
+    </div>
+  )}
+
         <div className="register-space">
           <div className="seller-register-space">
             <h3>Registrar Vendedor</h3>
-            <button>Registrar</button>
+            <button onClick={() => setShowSellerModal(true)}>Registrar</button>
           </div>
         </div>
       </div>
