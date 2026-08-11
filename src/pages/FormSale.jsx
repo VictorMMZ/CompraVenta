@@ -2,6 +2,7 @@ import { useState,useEffect } from "react";
 
 import "../assets/css/formsale.css";
 import { getProducts } from '../services/productsApi.js';
+import { createSale } from '../services/salesApi.js';
 export function FormSale() {
   const [formData, setFormData] = useState({
     customer_id: "",
@@ -9,6 +10,7 @@ export function FormSale() {
     total: 0,
     payment_method: "",
     notes: "",
+     sale_date: new Date().toISOString().split('T')[0]
   });
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,9 +37,7 @@ export function FormSale() {
     }));
   };
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
+ 
 
   const addToCart = (product) => {
     setCartItems((prev) => {
@@ -70,9 +70,42 @@ export function FormSale() {
     }
   };
 
-  const handleSubmit = (e) => {
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Formulario enviado:", { ...formData, items: cartItems });
+    console.log('Datos enviados:', JSON.stringify({
+        ...formData,
+        saleDetails: cartItems.map(item => ({
+            product_id: item.id,
+            quantity: item.quantity,
+            unit_price: item.price
+        }))
+    }));
+    createSale({
+      ...formData,
+      saleDetails: cartItems.map(item => ({
+        product_id: item.id,
+        quantity: item.quantity,
+        unit_price: item.price
+      }))
+    })
+    .then((response) => {
+      console.log("Venta creada exitosamente:", response);
+      // Reiniciar el formulario y el carrito
+      setFormData({
+        customer_id: "",
+        user_id: "",
+        total: 0,
+        payment_method: "",
+        notes: "",
+        sale_date: new Date().toISOString().split('T')[0],
+      });
+      setCartItems([]);
+    })
+    .catch((error) => {
+      console.error("Error al crear la venta:", error);
+    });
   };
 
   return (
@@ -218,7 +251,7 @@ export function FormSale() {
           </div>
         </div>
 
-        <button type="submit" className="btn-submit">
+        <button type="button" onClick={handleSubmit} className="btn-submit">
           Completar Venta
         </button>
       </form>
