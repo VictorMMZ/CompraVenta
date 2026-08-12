@@ -92,7 +92,6 @@ export function FormSale() {
     })
     .then((response) => {
       console.log("Venta creada exitosamente:", response);
-      // Reiniciar el formulario y el carrito
       setFormData({
         customer_id: "",
         user_id: "",
@@ -232,6 +231,32 @@ export function FormSale() {
                         className="btn-remove"
                       >
                         Eliminar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => addToCart(item)}
+                      >
+                        +
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (item.quantity > 1) {
+                            const updatedItem = { ...item, quantity: item.quantity - 1 };
+                            setCartItems((prev) =>
+                              prev.map((cartItem) =>
+                                cartItem.id === item.id ? updatedItem : cartItem
+                              )
+                            );
+                            const newTotal = formData.total - item.price;
+                            setFormData((prev) => ({
+                              ...prev,
+                              total: parseFloat(newTotal.toFixed(2)),
+                            }));
+                          }
+                        }}
+                      >
+                        -
                       </button>
                     </td>
                   </tr>

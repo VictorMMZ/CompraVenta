@@ -15,7 +15,6 @@ export function FormPurchase() {
   });
   const [products, setProducts] = useState([]); 
   const [sellers, setSellers] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]); 
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoadingProducts, setIsLoadingProducts] = useState(false);
   const [isLoadingSellers, setIsLoadingSellers] = useState(false);
@@ -33,6 +32,7 @@ export function FormPurchase() {
     price: "",
     category_id: "",
   });
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -93,15 +93,15 @@ export function FormPurchase() {
   );
   // Añadir producto existente al carrito
   const handleSelectProduct = (product) => {
-    const exists = selectedProducts.find((p) => p.id === product.id);
+    const exists = cartItems.find((p) => p.id === product.id);
     if (exists) {
-      setSelectedProducts((prev) =>
+      setCartItems((prev) =>
         prev.map((p) =>
           p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p,
         ),
       );
     } else {
-      setSelectedProducts((prev) => [...prev, { ...product, quantity: 1 }]);
+      setCartItems((prev) => [...prev, { ...product, quantity: 1 }]);
     }
 
     const newTotal = parseFloat(
@@ -113,17 +113,17 @@ export function FormPurchase() {
   };
 
   // Eliminar producto del carrito
-  const handleRemoveProduct = (id) => {
-    const product = selectedProducts.find((p) => p.id === id);
-    const newTotal = parseFloat(
-      (
-        purchaseForm.total -
-        parseFloat(product.purchase_price) * product.quantity
-      ).toFixed(2),
-    );
-    setPurchaseForm((prev) => ({ ...prev, total: newTotal }));
-    setSelectedProducts((prev) => prev.filter((p) => p.id !== id));
-  };
+  const removeFromCart = (productId) => {
+    const item = cartItems.find((item) => item.id === productId);
+    if (item) {
+      setPurchaseForm((prev) => ({
+        ...prev,
+        total: parseFloat((prev.total - item.purchase_price * item.quantity).toFixed(2)),
+      }));
+      setCartItems((prev) => prev.filter((item) => item.id !== productId));
+    }}
+
+
 
   const handlePurchaseChange = (e) => {
     const { name, value } = e.target;
@@ -144,7 +144,7 @@ export function FormPurchase() {
         quantity: 1,
         isNewProduct: true,
       };
-      setSelectedProducts((prev) => [...prev, product]);
+      setCartItems((prev) => [...prev, product]);
       const newTotal = parseFloat(
         (purchaseForm.total + parseFloat(newProduct.purchase_price)).toFixed(2),
       );
@@ -164,11 +164,30 @@ export function FormPurchase() {
     }
   };
 
+    const addToCart = (product) => {
+    setCartItems((prev) => {
+      const existingItem = prev.find((item) => item.id === product.id);
+      if (existingItem) {
+        const newTotal = purchaseForm.total + product.purchase_price;
+        setPurchaseForm((prev) => ({
+          ...prev,
+          total: parseFloat(newTotal.toFixed(2)),
+        }));
+        return prev.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
+        );
+      }
+      return [...prev, { ...product, quantity: 1 }];
+    });
+  };
+
   const handleSubmitPurchase = async (e) => {
     e.preventDefault();
     try {
       const resolvedProducts = await Promise.all(
-        selectedProducts.map(async (product) => {
+        cartItems.map(async (product) => {
           if (!product.isNewProduct) {
             return product;
           }
@@ -221,7 +240,7 @@ export function FormPurchase() {
       const createdPurchase = await createPurchase(payload);
       console.log("Compra creada correctamente:", createdPurchase);
 
-      setSelectedProducts([]);
+      setCartItems([]);
       setSearchTerm("");
     } catch (error) {
       console.error("No se pudo crear la compra:", error.message);
@@ -327,7 +346,7 @@ export function FormPurchase() {
           </div>
 
           {/* Carrito */}
-          {selectedProducts.length > 0 && (
+          {cartItems.length > 0 && (
             <div className="products-list">
               <h3>Productos Agregados:</h3>
               <table>
@@ -342,7 +361,7 @@ export function FormPurchase() {
                   </tr>
                 </thead>
                 <tbody>
-                  {selectedProducts.map((product) => (
+                  {cartItems.map((product) => (
                     <tr key={product.id}>
                       <td>{product.name}</td>
                       <td>{product.quantity}</td>
@@ -354,11 +373,38 @@ export function FormPurchase() {
                       <td>
                         <button
                           type="button"
-                          onClick={() => handleRemoveProduct(product.id)}
+                          onClick={() => removeFromCart(product.id)}
                           className="btn-remove"
                         >
                           Eliminar
                         </button>
+                        <button
+                        type="button"
+                        onClick={() => addToCart(product)}
+                      >
+                        +
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+
+                          if (product.quantity > 1) {
+                            const updatedItem = { ...product, quantity: product.quantity - 1 };
+                            setCartItems((prev) =>
+                              prev.map((cartItem) =>
+                                cartItem.id === product.id ? updatedItem : cartItem
+                              )
+                            );
+                            const newTotal = purchaseForm.total - product.purchase_price;
+                            setPurchaseForm((prev) => ({
+                              ...prev,
+                              total: parseFloat(newTotal.toFixed(2)),
+                            }));
+                          }
+                        }}
+                      >
+                        -
+                      </button>
                       </td>
                     </tr>
                   ))}
