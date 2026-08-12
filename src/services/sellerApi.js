@@ -1,35 +1,36 @@
-const API_URL = 'http://localhost:8000/api/sellers/';
+const API_URL = 'http://127.0.0.1:8000/api/sellers';
 
 export const getSellers = async () => {
-    const response = await fetch(API_URL);
+    const response = await fetch(API_URL, {
+        headers: { Accept: 'application/json' },
+    });
+
+    if (!response.ok) throw new Error('Error al obtener vendedores');
+
     return response.json();
 };
 
 export const getSellerbyDocument = async (document) => {
-  try {
-    const response = await fetch(`${API_URL}${document}/`); 
-    if (!response.ok) throw new Error('Error al obtener la venta');
-    return await response.json();
-  } catch (error) {
-    console.error('Error en GET por ID:', error);
-    throw error;
-  }
+    const response = await fetch(`${API_URL}/${document}`, {
+        headers: { Accept: 'application/json' },
+    });
+
+    if (!response.ok) throw new Error('Error al obtener el vendedor');
+
+    return response.json();
 };
 
-
 export const createSeller = async (sellerData) => {
-  try {
     const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(sellerData)
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify(sellerData)
     });
+
     if (!response.ok) throw new Error('Error al crear el vendedor');
-    return await response.json();
-  } catch (error) {
-    console.error('Error en POST:', error);
-    throw error;
-  }
+
+    return response.json();
 };

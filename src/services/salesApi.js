@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:8000/api/sales/';
+const API_URL = 'http://127.0.0.1:8000/api/sales';
 
 
 export const getSales = async () => {
@@ -26,6 +26,8 @@ export const getSaleById = async (id) => {
 
 export const createSale = async (saleData) => {
   try {
+
+    
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
