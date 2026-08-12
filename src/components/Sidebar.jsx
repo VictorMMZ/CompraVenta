@@ -7,9 +7,9 @@ export function Sidebar() {
     <div className="sidebar">
       <h2>Operaciones</h2>
       <ul>
-        <button><NavLink to="/formsale" className="navbar-link">Venta</NavLink></button>
+        <button><NavLink to="/formsale" className="sidebar-link">Venta</NavLink></button>
          
-        <button><NavLink to="/formpurchase" className="navbar-link">Compra</NavLink></button>
+        <button><NavLink to="/formpurchase" className="sidebar-link">Compra</NavLink></button>
         
       </ul>
 
