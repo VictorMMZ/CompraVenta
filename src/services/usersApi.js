@@ -7,7 +7,9 @@ export const getUsers = async () => {
 
     if (!response.ok) throw new Error('Error al obtener usuarios');
 
-    return response.json();
+  const data = await response.json();
+
+  return Array.isArray(data) ? data : [];
 };
 
 export const getUserbyDocument = async (document) => {
@@ -37,7 +39,7 @@ export const createUser = async (userData) => {
 
 export const updateUser = async (id, userData) => {
   try {
-    const response = await fetch(`${API_URL}/${id}/`, {
+    const response = await fetch(`${API_URL}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -54,10 +56,23 @@ export const updateUser = async (id, userData) => {
 
 export const deleteUser = async (id) => {
   try {
-    const response = await fetch(`${API_URL}${id}/`, {
+    const response = await fetch(`${API_URL}/${id}`, {
       method: 'DELETE',
     });
-    if (!response.ok) throw new Error('Error al eliminar el usuario');
+
+    if (!response.ok) {
+      let message = 'Error al eliminar el usuario';
+      try {
+        const errorData = await response.json();
+        if (errorData?.message) {
+          message = errorData.message;
+        }
+      } catch {
+        // Keep default error message when response is not JSON.
+      }
+      throw new Error(message);
+    }
+
     return await response.json();
   } catch (error) {
     console.error('Error en DELETE:', error);
