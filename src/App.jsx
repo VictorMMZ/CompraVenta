@@ -8,6 +8,7 @@ import { Sales } from './pages/Sales'
 import { Stock } from './pages/Stock'
 import { FormPurchase } from './pages/FormPurchase'
 import { FormSale } from './pages/FormSale'
+import { Users } from './pages/Users'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/stock" element={<Stock />} />
         <Route path="/formpurchase" element={<FormPurchase />} />
         <Route path="/formsale" element={<FormSale />} />
+        <Route path="/users" element={<Users />} />
        
       </Route>
       
