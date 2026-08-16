@@ -1,8 +1,9 @@
-const API_URL = 'http://127.0.0.1:8000/api/users';
+const API_URL = 'http://localhost:8000/api/users';
 
 export const getUsers = async () => {
     const response = await fetch(API_URL, {
         headers: { Accept: 'application/json' },
+        credentials: 'include',
     });
 
     if (!response.ok) throw new Error('Error al obtener usuarios');
@@ -15,6 +16,7 @@ export const getUsers = async () => {
 export const getUserbyDocument = async (document) => {
     const response = await fetch(`${API_URL}/${document}`, {
         headers: { Accept: 'application/json' },
+        credentials: 'include',
     });
 
     if (!response.ok) throw new Error('Error al obtener el usuario');
@@ -29,6 +31,7 @@ export const createUser = async (userData) => {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(userData)
     });
 
@@ -44,6 +47,7 @@ export const updateUser = async (id, userData) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
         body: JSON.stringify(userData),
     });
     if (!response.ok) throw new Error('Error al actualizar el usuario');
@@ -58,6 +62,7 @@ export const deleteUser = async (id) => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
       method: 'DELETE',
+      credentials: 'include',
     });
 
     if (!response.ok) {

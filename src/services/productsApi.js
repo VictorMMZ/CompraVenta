@@ -1,17 +1,28 @@
-const API_URL = 'http://127.0.0.1:8000/api/products';
+const API_URL = 'http://localhost:8000/api/products';
 
 
 export const getProducts = async () => {
   try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error('Error al obtener productos');
-    return await response.json();
+    const response = await fetch(API_URL, {
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error('Error al obtener productos');
+    }
+
+    return data;
+
   } catch (error) {
     console.error('Error en GET:', error);
     throw error;
   }
 };
-
 
 export const createProduct = async (product) => {
   try {
@@ -21,6 +32,7 @@ export const createProduct = async (product) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(product),
+      credentials: 'include', // Incluir credenciales (cookies) en la solicitud
     });
     if (!response.ok) throw new Error('Error al crear producto');
     return await response.json();
@@ -39,6 +51,7 @@ export const updateProduct = async (id, product) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(product),
+      credentials: 'include', // Incluir credenciales (cookies) en la solicitud
     });
     if (!response.ok) throw new Error('Error al actualizar producto');
     return await response.json();
@@ -53,6 +66,7 @@ export const deleteProduct = async (id) => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
       method: 'DELETE',
+      credentials: 'include', // Incluir credenciales (cookies) en la solicitud
     });
     if (!response.ok) throw new Error('Error al eliminar producto');
     return await response.json();
