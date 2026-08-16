@@ -1,6 +1,7 @@
 //import { CartSummary } from "./CartSummary";
 import "../assets/css/sidebar.css";
 import { NavLink } from 'react-router-dom'
+import {logout} from "../services/authApi";
 
 export function Sidebar() {
   return (
@@ -17,7 +18,7 @@ export function Sidebar() {
         <button><NavLink to="/charts" className="sidebar-link">Graficas</NavLink></button>
       </ul>
 
-  
+      <button className="logout-button"><NavLink to="/" className="sidebar-link" onClick={logout}>Cerrar Sesion</NavLink></button>
       
     </div>
   );
