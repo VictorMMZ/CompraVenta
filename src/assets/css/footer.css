@@ -1,0 +1,30 @@
+.footer {
+  min-height: 15px;
+  background-color: #f0f0f0;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 20%;
+  box-sizing: border-box;
+  z-index: 90;
+}
+
+span {
+  color: #030000;
+  margin-left: 5px;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: #03220f;
+  font-family: Cambria, Georgia, serif;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}

@@ -1,0 +1,430 @@
+/* Users container */
+.users {
+    padding: 2rem;
+    font-family: Cambria, Georgia, serif;
+    min-height: 100vh;
+    background-color: #f4f1ec;
+}
+
+/* Header */
+.users-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #03220f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.users-header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #03220f;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+/* Barra superior */
+.users-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+}
+
+.users-search {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.5rem 0.9rem;
+    border: 1.5px solid #c5bfb0;
+    border-radius: 5px;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.88rem;
+    background-color: #fff;
+    color: #1a1a1a;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.users-search:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.users-add-button {
+    padding: 0.5rem 1.2rem;
+    background-color: #03220f;
+    color: #d4af37;
+    border: none;
+    border-radius: 5px;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+}
+
+.users-add-button:hover {
+    background-color: #d4af37;
+    color: #03220f;
+}
+
+/* Tabla */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #faf9f9;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+    
+}
+
+.users-table thead {
+    background-color: #ffffff;
+    border-bottom: 2px solid #03220f;
+}
+
+.users-table thead th {
+    align-items: center;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #d4af37;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.users-table tbody tr {
+    border-bottom: 1px solid #03220f;
+    transition: background 0.15s;
+}
+
+.users-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.users-table tbody tr:hover {
+    background-color: #f7f3ea;
+}
+
+.users-table tbody td {
+    padding: 0.7rem 1rem;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.88rem;
+    color: #2a2a2a;
+}
+
+/* Botón editar tabla */
+.users-edit-button {
+    padding: 0.3rem 0.8rem;
+    background-color: transparent;
+    border: 1px solid #03220f;
+    border-radius: 4px;
+    color: #03220f;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.80rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.users-edit-button:hover {
+    background-color: #03220f;
+    color: #d4af37;
+}
+
+/* Popup overlay */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+
+.popup-modal {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 420px;
+    max-width: 90%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.popup-modal-create {
+    width: 700px;
+    max-width: 90%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-modal-create .popup-body {
+    overflow-y: auto;
+    flex: 1;
+    padding: 1.2rem;
+}
+
+.popup-modal-create .popup-footer {
+    flex-shrink: 0;
+}
+
+/* Header del popup */
+.popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.2rem;
+    background-color: #03220f;
+    border-bottom: 2px solid #d4af37;
+}
+
+.popup-header h3 {
+    margin: 0;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1rem;
+    color: #d4af37;
+    font-weight: 600;
+}
+
+.popup-close {
+    background: transparent;
+    border: none;
+    color: #a8c5b5;
+    font-size: 1.1rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.popup-close:hover {
+    color: #d4af37;
+}
+
+/* Body del popup */
+.popup-body {
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.popup-body p {
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.9rem;
+    color: #2a2a2a;
+    margin: 0 0 0.5rem;
+}
+
+.popup-body label {
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.80rem;
+    color: #555;
+    letter-spacing: 0.3px;
+}
+
+.popup-body input {
+    width: 100%;
+    padding: 0.45rem 0.8rem;
+    border: 1.5px solid #c5bfb0;
+    border-radius: 5px;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.88rem;
+    color: #1a1a1a;
+    background-color: #faf8f4;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.popup-body input:focus {
+    border-color: #d4af37;
+}
+
+.popup-body form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+/* Footer del popup */
+.popup-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    padding: 0.9rem 1.2rem;
+    border-top: 1px solid #ede9e0;
+    background-color: #faf8f4;
+}
+
+.popup-footer button {
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.popup-footer .delete {
+    background-color: transparent;
+    border: 1px solid #9b2226;
+    color: #9b2226;
+    margin-right: auto;
+}
+
+.popup-footer .delete:hover {
+    background-color: #9b2226;
+    color: #fff;
+}
+
+.popup-footer .close {
+    background-color: transparent;
+    border: 1px solid #c5bfb0;
+    color: #555;
+}
+
+.popup-footer .close:hover {
+    background-color: #ede9e0;
+}
+
+.popup-footer .save {
+    background-color: #03220f;
+    color: #d4af37;
+}
+
+.popup-footer .save:hover {
+    background-color: #d4af37;
+    color: #03220f;
+}
+
+/* Media Queries - Tablet (768px) */
+@media (max-width: 768px) {
+    .users {
+        padding: 1.5rem;
+    }
+
+    .users-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .users-content {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .users-search {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .users-add-button {
+        width: 100%;
+    }
+
+    .users-table {
+        font-size: 0.75rem;
+    }
+
+    .users-table thead th,
+    .users-table tbody td {
+        padding: 0.5rem 0.7rem;
+    }
+
+    .action-buttons {
+        gap: 0.3rem;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+
+    .popup {
+        width: 90%;
+        max-width: 500px;
+    }
+
+    .popup-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Media Queries - Mobile (480px) */
+@media (max-width: 480px) {
+    .users {
+        padding: 1rem;
+    }
+
+    .users-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .users-header h1 {
+        font-size: 1.1rem;
+    }
+
+    .users-search,
+    .users-add-button {
+        width: 100%;
+    }
+
+    .users-table {
+        font-size: 0.7rem;
+    }
+
+    .users-table thead th,
+    .users-table tbody td {
+        padding: 0.4rem 0.5rem;
+    }
+
+    .action-buttons {
+        gap: 0.2rem;
+        flex-wrap: wrap;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.7rem;
+    }
+
+    .popup {
+        width: 95%;
+        max-width: 400px;
+    }
+
+    .popup-header h2 {
+        font-size: 1rem;
+    }
+
+    .popup-body {
+        gap: 0.6rem;
+    }
+
+    .popup-body input,
+    .popup-body select,
+    .popup-body textarea {
+        font-size: 0.85rem;
+    }
+
+    .popup-footer {
+        gap: 0.4rem;
+    }
+
+    .popup-footer button {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+}

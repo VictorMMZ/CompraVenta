@@ -9,9 +9,7 @@
     gap: 1rem;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
     flex-shrink: 0;
-    left: 0;
-    position: fixed;
-   
+    box-sizing: border-box;
 }
 
 .sidebar ul {
@@ -22,6 +20,25 @@
     flex-direction: column;
     gap: 0.5rem;
 }
+
+
+.logout-button {
+    margin-top: auto;
+    text-decoration: none;
+    color:#03220f;
+}
+
+.logout-button:hover {
+    background-color: #d62525;
+   
+}
+
+.logout-button:hover a {
+    color: #ffffff;
+   
+}
+
+
 
 button {
     padding: 0.5rem 1rem;
@@ -42,3 +59,4 @@ button:hover {
     background-color: #d4af37;
     color: #03220f;
 }
+
