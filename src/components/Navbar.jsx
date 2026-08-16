@@ -11,11 +11,11 @@ const Navbar = () => {
         </div>
 
               <div className="user-info">
-    <p>Usuario: Victor</p>
+    <p>Usuario: {JSON.parse(sessionStorage.getItem('user')).name}</p>
 </div>
         <ul className="navbar-menu">
           <li className="navbar-item">
-            <NavLink to="/" className="navbar-link">Dashboard</NavLink>
+            <NavLink to="/dashboard" className="navbar-link">Dashboard</NavLink>
           </li>
           <li className="navbar-item">
             <NavLink to="/purchase" className="navbar-link">Purchases</NavLink>

@@ -4,7 +4,7 @@ import '../assets/css/footer.css';
 
 export default function Footer() {
   const [currentTime, setCurrentTime] = useState('');
-  const userType = localStorage.getItem('userType') || 'empleado';
+
 
   useEffect(() => {
     const updateTime = () => {
@@ -24,8 +24,8 @@ export default function Footer() {
   return (
     <footer className="footer">
       <span>{currentTime}</span>
-      <span>Usuario:  </span>
-      <span style={{ textTransform: 'capitalize' }}>{userType}</span>
+      <span> Permisos : {JSON.parse(sessionStorage.getItem('user')).role || 'trabajador'}</span>
+      
     </footer>
   );
 }
