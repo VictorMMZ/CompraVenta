@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import '../assets/css/Users.css';
 import { getUsers, createUser, updateUser, deleteUser } from '../services/usersApi';
+import { Button } from '../components/Button.jsx';
 
 export function Users() {
   const [users, setUsers] = useState([]);
@@ -47,24 +48,24 @@ export function Users() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <button
-          className="users-add-button"
+        <Button
+          style="users-add-button"
           onClick={() => setCreateShowModal(true)}
         >
           Agregar usuario
-        </button>
+        </Button>
 
         {createShowModal && (
           <div className="popup-overlay">
             <div className="popup-modal popup-modal-create">
               <div className="popup-header">
                 <h3>Agregar Usuario</h3>
-                <button
-                  className="popup-close"
+                <Button
+                  style="popup-close"
                   onClick={() => setCreateShowModal(false)}
                 >
                   ×
-                </button>
+                </Button>
               </div>
 
               <div className="popup-body">
@@ -149,14 +150,14 @@ export function Users() {
               </div>
 
               <div className="popup-footer">
-                <button
-                  className="close"
+                <Button
+                  style="close"
                   onClick={() => setCreateShowModal(false)}
                 >
                   Cerrar
-                </button>
-                <button
-                  className="save"
+                </Button>
+                <Button
+                  style="save"
                   onClick={() => {
                     createUser(createFormData).then(() => {
                       setCreateShowModal(false);
@@ -172,7 +173,7 @@ export function Users() {
                   }}
                 >
                   Guardar
-                </button>
+                </Button>
               </div>
             </div>
           </div>
@@ -184,17 +185,18 @@ export function Users() {
               <div className="popup-header">
                 <h3>{selectedUser?.name}</h3>
 
-                <button
-                  className="popup-close"
+                <Button
+                  style="popup-close"
                   onClick={() => setDeleteShowModal(false)}
                 >
                   x
-                </button>
+                </Button>
               </div>
 
               <div className="popup-body">
                 <p>¿Estás seguro de que deseas eliminar este usuario?</p>
-                <button
+                <Button
+                  style="delete"
                   onClick={() =>
                     deleteUser(selectedUser.id).then(() => {
                       setDeleteShowModal(false);
@@ -206,8 +208,8 @@ export function Users() {
                   }
                 >
                   Si
-                </button>
-                <button onClick={() => setDeleteShowModal(false)}>No</button>
+                </Button>
+                <Button style="close" onClick={() => setDeleteShowModal(false)}>No</Button>
               </div>
             </div>
           </div>
@@ -218,12 +220,12 @@ export function Users() {
             <div className="popup-modal">
               <div className="popup-header">
                 <h3>{selectedUser?.name}</h3>
-                <button
-                  className="popup-close"
+                <Button
+                  style="popup-close"
                   onClick={() => setEditShowModal(false)}
                 >
                   ×
-                </button>
+                </Button>
               </div>
 
               <div className="popup-body">
@@ -295,23 +297,23 @@ export function Users() {
               </div>
 
               <div className="popup-footer">
-                <button
-                  className="delete"
+                <Button
+                  style="delete"
                   onClick={() => {
                     setDeleteShowModal(true);
                     setEditShowModal(false);
                   }}
                 >
                   Eliminar
-                </button>
-                <button
-                  className="close"
+                </Button>
+                <Button
+                  style="close"
                   onClick={() => setEditShowModal(false)}
                 >
                   Cerrar
-                </button>
-                <button
-                  className="save"
+                </Button>
+                <Button
+                  style="save"
                   onClick={() => {
                     const payload = {
                       name: updateFormData.name || selectedUser.name,
@@ -338,7 +340,7 @@ export function Users() {
                   }}
                 >
                   Guardar cambios
-                </button>
+                </Button>
               </div>
             </div>
           </div>
@@ -368,8 +370,8 @@ export function Users() {
                   <td>{user.email}</td>
                   <td>{user.role}</td>
                   <td>
-                    <button
-                      className="users-edit-button"
+                    <Button
+                      style="users-edit-button"
                       onClick={() => {
                         setSelectedUser(user);
                         setEditShowModal(true);
@@ -383,7 +385,7 @@ export function Users() {
                       }}
                     >
                       Editar
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))}

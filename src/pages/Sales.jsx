@@ -3,7 +3,7 @@ import "../assets/css/sales.css";
 import { useState, useEffect } from "react";
 import { getSales} from "../services/salesApi.js";
 import { dateFormatter } from "../utils/dateformatter.js";
-
+import { Button } from "../components/Button.jsx";
 
 
 export function Sales() {
@@ -94,7 +94,7 @@ export function Sales() {
                                 <li key={index}>ID: {detail.product_id} Nombre : {detail.product?.name} - {detail.unit_price} € - Cantidad: {detail.quantity} - Subtotal: {detail.subtotal} €</li>
                             ))}
                         </ul>
-                        <button className="close" onClick={() => setShowModal(false)}>Cerrar</button>
+                        <Button style="close" onClick={() => setShowModal(false)}>Cerrar</Button>
                     </div>
                   
                 </div>

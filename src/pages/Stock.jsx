@@ -6,6 +6,8 @@ import {
   updateProduct,
   deleteProduct,
 } from "../services/productsApi.js";
+import { Button } from "../components/Button.jsx";
+
 
 export function Stock() {
   const [products, setProducts] = useState([]);
@@ -54,24 +56,21 @@ export function Stock() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button
-          className="stock-add-button"
-          onClick={() => setCreateShowModal(true)}
-        >
+        <Button style="stock-add-button" onClick={() => setCreateShowModal(true)}>
           Agregar producto
-        </button>
+        </Button>
 
         {createShowModal && (
           <div className="popup-overlay">
             <div className="popup-modal popup-modal-create">
               <div className="popup-header">
                 <h3>Agregar Producto</h3>
-                <button
-                  className="popup-close"
+                <Button
+                  style="popup-close"
                   onClick={() => setCreateShowModal(false)}
                 >
                   ×
-                </button>
+                </Button>
               </div>
 
               <div className="popup-body">
@@ -220,14 +219,14 @@ export function Stock() {
               </div>
 
               <div className="popup-footer">
-                <button
-                  className="close"
+                <Button
+                  style="close"
                   onClick={() => setCreateShowModal(false)}
                 >
                   Cerrar
-                </button>
-                <button
-                  className="save"
+                </Button>
+                <Button
+                  style="save"
                   onClick={() => {
                     createProduct(createFormData).then(() => {
                       setCreateShowModal(false);
@@ -236,7 +235,7 @@ export function Stock() {
                   }}
                 >
                   Guardar
-                </button>
+                </Button>
               </div>
             </div>
           </div>
@@ -257,7 +256,8 @@ export function Stock() {
 
               <div className="popup-body">
                 <p>¿Estás seguro de que deseas eliminar este producto?</p>
-                <button
+                <Button
+                  style="delete"
                   onClick={() =>
                     deleteProduct(selectedProduct.id).then(() => {
                       setDeleteShowModal(false);
@@ -266,8 +266,8 @@ export function Stock() {
                   }
                 >
                   Si
-                </button>
-                <button onClick={() => setDeleteShowModal(false)}>No</button>
+                </Button>
+                <Button style="close" onClick={() => setDeleteShowModal(false)}>No</Button>
               </div>
             </div>
           </div>
@@ -278,12 +278,12 @@ export function Stock() {
             <div className="popup-modal">
               <div className="popup-header">
                 <h3>{selectedProduct?.name}</h3>
-                <button
-                  className="popup-close"
+                <Button
+                  style="popup-close"
                   onClick={() => setEditShowModal(false)}
                 >
                   ×
-                </button>
+                </Button>
               </div>
 
               <div className="popup-body">
@@ -340,23 +340,23 @@ export function Stock() {
               </div>
 
               <div className="popup-footer">
-                <button
-                  className="delete"
+                <Button
+                  style="delete"
                   onClick={() => {
                     setDeleteShowModal(true);
                     setEditShowModal(false);
                   }}
                 >
                   Eliminar
-                </button>
-                <button
-                  className="close"
+                </Button>
+                <Button
+                  style="close"
                   onClick={() => setEditShowModal(false)}
                 >
                   Cerrar
-                </button>
-                <button
-                  className="save"
+                </Button>
+                <Button
+                  style="save"
                   onClick={() =>
                     updateProduct(selectedProduct.id, updateFormData).then(
                       () => {
@@ -367,7 +367,7 @@ export function Stock() {
                   }
                 >
                   Guardar cambios
-                </button>
+                </Button>
               </div>
             </div>
           </div>
@@ -397,8 +397,8 @@ export function Stock() {
                   <td>{product.price}€</td>
                   <td>{product.description}</td>
                   <td>
-                    <button
-                      className="stock-edit-button"
+                    <Button
+                      style="stock-edit-button"
                       onClick={() => {
                         setSelectedProduct(product);
                         setEditShowModal(true);
@@ -406,7 +406,7 @@ export function Stock() {
                       }}
                     >
                       Editar
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))}

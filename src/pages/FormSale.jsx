@@ -3,10 +3,11 @@ import { useState,useEffect } from "react";
 import "../assets/css/formsale.css";
 import { getProducts } from '../services/productsApi.js';
 import { createSale } from '../services/salesApi.js';
+import { Button } from "../components/Button.jsx";
 export function FormSale() {
   const [formData, setFormData] = useState({
     customer_id: "",
-    user_id: "",
+    user_id: JSON.parse(sessionStorage.getItem("user"))?.id || "",
     total: 0,
     payment_method: "",
     notes: "",
@@ -94,7 +95,7 @@ export function FormSale() {
       console.log("Venta creada exitosamente:", response);
       setFormData({
         customer_id: "",
-        user_id: "",
+        user_id: JSON.parse(sessionStorage.getItem("user"))?.id || "",
         total: 0,
         payment_method: "",
         notes: "",
@@ -276,9 +277,9 @@ export function FormSale() {
           </div>
         </div>
 
-        <button type="button" onClick={handleSubmit} className="btn-submit">
+        <Button style="btn-submit" onClick={handleSubmit} >
           Completar Venta
-        </button>
+        </Button>
       </form>
     </div>
   );

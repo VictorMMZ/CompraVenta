@@ -5,6 +5,7 @@ import { createPurchase } from "../services/purchasesApi.js";
 import { createProduct } from "../services/productsApi.js";
 import { getSellers } from "../services/sellerApi.js";
 
+
 export function FormPurchase() {
   const [purchaseForm, setPurchaseForm] = useState({
     user_id: "",

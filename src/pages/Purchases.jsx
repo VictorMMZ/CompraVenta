@@ -3,6 +3,7 @@ import { getPurchases } from "../services/purchasesApi.js";
 import { dateFormatter } from "../utils/dateformatter.js";
 import { PurchaseCard } from "../components/PurchaseCard.jsx";
 import "../assets/css/purchases.css";
+import { Button } from "../components/Button.jsx";
 
 export function Purchase() {
   const today = new Date().toISOString().split("T")[0];
@@ -93,7 +94,7 @@ export function Purchase() {
                                 <li key={index}>ID: {detail.product_id} Nombre : {detail.product?.name} - {detail.unit_price} € - Cantidad: {detail.quantity} - Subtotal: {detail.subtotal} €</li>
                             ))}
                         </ul>
-                        <button className="close" onClick={() => setShowModal(false)}>Cerrar</button>
+                        <Button style="close" onClick={() => setShowModal(false)}>Cerrar</Button>
                     </div>
                   
                 </div>

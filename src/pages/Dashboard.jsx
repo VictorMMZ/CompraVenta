@@ -3,6 +3,7 @@ import { InfoCard } from "../components/InfoCard";
 import { getDashboardData } from "../services/dashboardApi";
 import { useEffect, useState } from "react";
 import {createSeller} from "../services/sellerApi.js";
+import{Button} from "../components/Button.jsx";
 
 export function Dashboard() {
 
@@ -59,9 +60,9 @@ export function Dashboard() {
       <div className="dashboard-content">
         {/* Métricas rápidas */}
         <div className="dashboard-cards">
-          <InfoCard title="Ventas hoy" value={dashboardData?.totalSalesToday.toFixed(2) ?? "Cargando..."} icon="📊" />
-          <InfoCard title="Compras hoy" value={dashboardData?.totalPurchasesToday.toFixed(2) ?? "Cargando..."} icon="🛒" />
-          <InfoCard title="Beneficio" value={dashboardData?.totalProfitToday.toFixed(2) ?? "Cargando..."} icon="💰" />
+          <InfoCard title="Ventas hoy" value={`${dashboardData?.totalSalesToday.toFixed(2) ?? "Cargando..."} €`}  icon="📊" />
+          <InfoCard title="Compras hoy" value={`${dashboardData?.totalPurchasesToday.toFixed(2) ?? "Cargando..."} €`} icon="🛒" />
+          <InfoCard title="Beneficio" value={`${dashboardData?.totalProfitToday.toFixed(2) ?? "Cargando..."} €`} icon="💰" />
           <InfoCard title="Stock bajo" value={dashboardData?.productsWithLowStock?.length ?? "Cargando..."} icon="⚠️" />
         </div>
 
@@ -82,7 +83,7 @@ export function Dashboard() {
                   <tr key={operation.id}>
                     <td>{operation.type === 'sale' ? 'Venta' : 'Compra'}</td>
                     <td>{operation.payment_method ?? ''}</td>
-                    <td>{operation.total ?? '0 €'}</td>
+                    <td>{`${operation.total ?? '0.00'} €`}</td>
                   </tr>
                 ))}
               </tbody>
@@ -109,7 +110,7 @@ export function Dashboard() {
       <div className="modal-content">
         <div className="modal-header">
           <h2>Registrar Vendedor</h2>
-          <button className="modal-close" onClick={() => setShowSellerModal(false)}>X</button>
+          <Button style="modal-close" onClick={() => setShowSellerModal(false)}>X</Button>
         </div>
         <label htmlFor="name">Nombre:</label>
         <input
@@ -143,7 +144,7 @@ export function Dashboard() {
           onChange={handleSellerFormChange}
         />
 
-           <button className="modal-add" onClick={handleSellerFormSubmit}>Añadir</button>
+           <Button style="modal-add" onClick={handleSellerFormSubmit}>Añadir</Button>
       </div>
    
     </div>
@@ -152,7 +153,7 @@ export function Dashboard() {
         <div className="register-space">
           <div className="seller-register-space">
             <h3>Registrar Vendedor</h3>
-            <button onClick={() => setShowSellerModal(true)}>Registrar</button>
+            <Button style="modal-add" onClick={() => setShowSellerModal(true)}>Registrar</Button>
           </div>
         </div>
       </div>
