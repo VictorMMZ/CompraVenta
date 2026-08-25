@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import '../assets/css/Users.css';
 import { getUsers, createUser, updateUser, deleteUser } from '../services/usersApi';
 import { Button } from '../components/Button.jsx';
+import { userRegex, validateByRegex } from '../utils/regexp.js';
 
 export function Users() {
   const [users, setUsers] = useState([]);
@@ -24,6 +25,36 @@ export function Users() {
     password: '',
     password_confirmation: '',
   });
+
+  const validateUserForm = (data, isEdit = false) => {
+    if (!validateByRegex(userRegex.nombre, data.name)) {
+      return 'El nombre no es valido.';
+    }
+
+    if (!validateByRegex(userRegex.email, data.email)) {
+      return 'El correo electronico no es valido.';
+    }
+
+    if (!validateByRegex(userRegex.rol, data.role)) {
+      return 'El rol no es valido.';
+    }
+
+    if (!isEdit && !data.password) {
+      return 'La contrasena es obligatoria al crear un usuario.';
+    }
+
+    if (data.password) {
+      if (!validateByRegex(userRegex.password, data.password)) {
+        return 'La contrasena debe  tener minimo 8 caracteres, mayuscula, minuscula, numero y simbolo.';
+      }
+
+      if (data.password !== data.password_confirmation) {
+        return 'La confirmacion de contrasena no coincide.';
+      }
+    }
+
+    return null;
+  };
 
   const reloadUsers = () => {
     getUsers().then(setUsers);
@@ -147,6 +178,7 @@ export function Users() {
                     />
                   </div>
                 </form>
+                <div id="modal-error" className="modal-error"></div>
               </div>
 
               <div className="popup-footer">
@@ -159,6 +191,12 @@ export function Users() {
                 <Button
                   style="save"
                   onClick={() => {
+                    const validationError = validateUserForm(createFormData, false);
+                    if (validationError) {
+                      document.getElementById("modal-error").innerHTML = validationError;
+                      return;
+                    }
+
                     createUser(createFormData).then(() => {
                       setCreateShowModal(false);
                       setCreateFormData({
@@ -294,6 +332,7 @@ export function Users() {
                     }
                   />
                 </form>
+                <div id="modal-error" className="modal-error"></div>
               </div>
 
               <div className="popup-footer">
@@ -324,6 +363,12 @@ export function Users() {
                     if (updateFormData.password) {
                       payload.password = updateFormData.password;
                       payload.password_confirmation = updateFormData.password_confirmation;
+                    }
+
+                    const validationError = validateUserForm(payload, true);
+                    if (validationError) {
+                      document.getElementById("modal-error").innerHTML = validationError;
+                      return;
                     }
 
                     updateUser(selectedUser.id, payload).then(() => {

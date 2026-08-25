@@ -7,6 +7,7 @@ import {
   deleteProduct,
 } from "../services/productsApi.js";
 import { Button } from "../components/Button.jsx";
+import { stockRegex, commonRegex, validateByRegex } from "../utils/regexp.js";
 
 
 export function Stock() {
@@ -35,6 +36,71 @@ export function Stock() {
     price: "",
     description: "",
   });
+
+  const validateCreateStockForm = (data) => {
+    if (!validateByRegex(stockRegex.nombre, data.name)) {
+      return "El nombre del producto no es valido.";
+    }
+
+    if (!validateByRegex(stockRegex.descripcion, data.description)) {
+      return "La descripcion debe tener como maximo 300 caracteres.";
+    }
+
+    if (!validateByRegex(stockRegex.precio, data.price)) {
+      return "El precio debe ser un numero valido con hasta 2 decimales.";
+    }
+
+    if (!validateByRegex(stockRegex.cantidad, data.stock)) {
+      return "El stock debe ser un numero entero positivo.";
+    }
+
+    if (!validateByRegex(stockRegex.nombre, data.brand)) {
+      return "La marca no es valida.";
+    }
+
+    if (!validateByRegex(stockRegex.nombre, data.model)) {
+      return "El modelo no es valido.";
+    }
+
+    if (!validateByRegex(stockRegex.codigo, data.serial_number)) {
+      return "El numero de serie no es valido.";
+    }
+
+    if (!validateByRegex(stockRegex.costo, data.purchase_price)) {
+      return "El precio de compra no es valido.";
+    }
+
+    if (!validateByRegex(stockRegex.precio, data.sale_price)) {
+      return "El precio de venta no es valido.";
+    }
+
+    if (!validateByRegex(commonRegex.id, data.category_id)) {
+      return "La categoria debe ser un ID numerico valido.";
+    }
+
+    return null;
+  };
+
+  const validateUpdateStockForm = (data) => {
+    if (!validateByRegex(stockRegex.nombre, data.name)) {
+      return "El nombre del producto no es valido.";
+    }
+
+    if (!validateByRegex(stockRegex.cantidad, data.stock)) {
+      return "El stock debe ser un numero entero positivo.";
+    }
+
+    if (!validateByRegex(stockRegex.precio, data.price)) {
+      return "El precio debe ser un numero valido con hasta 2 decimales.";
+    }
+
+    if (!validateByRegex(stockRegex.descripcion, data.description)) {
+      return "La descripcion debe tener como maximo 300 caracteres.";
+    }
+
+    return null;
+  };
+  
 
   const reloadProducts = () => {
     getProducts().then(setProducts);
@@ -72,7 +138,7 @@ export function Stock() {
                   ×
                 </Button>
               </div>
-
+              
               <div className="popup-body">
                 <form>
                   <div className="field">
@@ -216,6 +282,7 @@ export function Stock() {
                     />
                   </div>
                 </form>
+                <div id="modal-error" className="modal-error"></div>
               </div>
 
               <div className="popup-footer">
@@ -228,6 +295,12 @@ export function Stock() {
                 <Button
                   style="save"
                   onClick={() => {
+                    const validationError = validateCreateStockForm(createFormData);
+                    if (validationError) {
+                      document.getElementById("modal-error").innerHTML = validationError;
+                      return;
+                    }
+
                     createProduct(createFormData).then(() => {
                       setCreateShowModal(false);
                       reloadProducts();
@@ -337,6 +410,7 @@ export function Stock() {
                     }
                   />
                 </form>
+                    <div id="modal-error" className="modal-error"></div>
               </div>
 
               <div className="popup-footer">
@@ -357,14 +431,18 @@ export function Stock() {
                 </Button>
                 <Button
                   style="save"
-                  onClick={() =>
-                    updateProduct(selectedProduct.id, updateFormData).then(
-                      () => {
-                        setEditShowModal(false);
-                        reloadProducts();
-                      },
-                    )
-                  }
+                  onClick={() => {
+                    const validationError = validateUpdateStockForm(updateFormData);
+                    if (validationError) {
+                      document.getElementById("modal-error").innerHTML = validationError;
+                      return;
+                    }
+
+                    updateProduct(selectedProduct.id, updateFormData).then(() => {
+                      setEditShowModal(false);
+                      reloadProducts();
+                    });
+                  }}
                 >
                   Guardar cambios
                 </Button>
@@ -372,6 +450,9 @@ export function Stock() {
             </div>
           </div>
         )}
+
+
+        {}
 
         <table className="stock-table">
           <thead>
