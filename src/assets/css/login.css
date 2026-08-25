@@ -96,3 +96,11 @@ form button:hover {
     background-color: #d4af37;
     color: #03220f;
 }
+
+.error-message {
+    color: #9b2226;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}

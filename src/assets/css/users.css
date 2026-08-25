@@ -25,6 +25,14 @@
     letter-spacing: 1px;
 }
 
+.modal-error {
+    color: #9b2226;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
 /* Barra superior */
 .users-content {
     display: flex;

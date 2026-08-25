@@ -306,6 +306,14 @@
     color: #03220f;
 }
 
+.modal-error {
+    color: #9b2226;
+    font-family: Cambria, Georgia, serif;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
 /* Media Queries - Tablet (768px) */
 @media (max-width: 768px) {
     .stock {
