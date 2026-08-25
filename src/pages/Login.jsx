@@ -22,7 +22,7 @@ export function Login() {
       const data = await res.json();
 
       if (!res.ok) {
-        console.log("Credenciales incorrectas");
+        document.getElementById("error-message").innerHTML = "Credenciales incorrectas";
         return;
       }
       
@@ -43,6 +43,7 @@ export function Login() {
         <img src="../src/assets/images/quickshop_logo.svg" alt="Logo de QuickShop" />
         <h1 id="login-title">Iniciar sesión</h1>
         <p>Ingresa tus datos para continuar</p>
+         <div className="error-message" id="error-message"></div>
 
         <form onSubmit={handleSubmit}>
           <label htmlFor="correo">Correo electrónico</label>
@@ -72,6 +73,7 @@ export function Login() {
           <button type="submit">Iniciar sesión</button>
         </form>
       </section>
+     
     </main>
   );
 }
