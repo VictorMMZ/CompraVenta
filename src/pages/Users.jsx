@@ -35,6 +35,10 @@ export function Users() {
       return 'El correo electronico no es valido.';
     }
 
+    if (users.filter((user) => user.email === data.email).length > 0 && !isEdit) {
+      return 'El correo electronico ya esta en uso.';
+    }
+
     if (!validateByRegex(userRegex.rol, data.role)) {
       return 'El rol no es valido.';
     }
