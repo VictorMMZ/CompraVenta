@@ -8,7 +8,7 @@ import { getSellers } from "../services/sellerApi.js";
 
 export function FormPurchase() {
   const [purchaseForm, setPurchaseForm] = useState({
-    user_id: "",
+    user_id: JSON.parse(sessionStorage.getItem("user"))?.id || "",
     document_id: "",
     total: 0,
     payment_method: "",
