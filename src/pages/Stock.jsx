@@ -8,10 +8,12 @@ import {
 } from "../services/productsApi.js";
 import { Button } from "../components/Button.jsx";
 import { stockRegex, commonRegex, validateByRegex } from "../utils/regexp.js";
+import { LoadingState } from "../components/LoadingState.jsx";
 
 
 export function Stock() {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [editShowModal, setEditShowModal] = useState(false);
   const [deleteShowModal, setDeleteShowModal] = useState(false);
@@ -102,13 +104,37 @@ export function Stock() {
   };
   
 
-  const reloadProducts = () => {
-    getProducts().then(setProducts);
+  const reloadProducts = async () => {
+    setIsLoading(true);
+    try {
+      const data = await getProducts();
+      setProducts(data);
+    } catch (error) {
+      console.error("Error al obtener productos:", error);
+      setProducts([]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    getProducts().then(setProducts);
+    getProducts()
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener productos:", error);
+        setProducts([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
+
+  if (isLoading) {
+    return <LoadingState message="Cargando stock..." />;
+  }
+
   return (
     <div className="stock">
       <div className="stock-header">

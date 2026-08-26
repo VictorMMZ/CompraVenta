@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { getSales} from "../services/salesApi.js";
 import { dateFormatter } from "../utils/dateformatter.js";
 import { Button } from "../components/Button.jsx";
+import { LoadingState } from "../components/LoadingState.jsx";
 
 
 export function Sales() {
@@ -11,6 +12,7 @@ export function Sales() {
 
  const today = new Date().toISOString().split("T")[0];
   const [sales, setSales] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [activesearchTerm, setActiveSearchTerm] = useState(today);
   const [showModal, setShowModal] = useState(false);
   const [selectedSale, setSelectedSale] = useState(null);
@@ -23,8 +25,16 @@ export function Sales() {
       })
       .catch((error) => {
         console.error("Error al obtener las ventas:", error);
+        setSales([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
+
+  if (isLoading) {
+    return <LoadingState message="Cargando ventas..." />;
+  }
 
  
   return (

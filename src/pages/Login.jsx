@@ -2,12 +2,15 @@ import "../../src/assets/css/login.css";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LoadingState } from "../components/LoadingState.jsx";
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     try {
       const res = await fetch("http://localhost:8000/api/login", {
         method: "POST",
@@ -33,8 +36,14 @@ export function Login() {
       navigate("/dashboard");
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
+  if (isSubmitting) {
+    return <LoadingState message="Iniciando sesion..." />;
+  }
 
 
   return (
@@ -70,7 +79,9 @@ export function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button type="submit">Iniciar sesión</button>
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Iniciando sesion..." : "Iniciar sesión"}
+          </button>
         </form>
       </section>
      

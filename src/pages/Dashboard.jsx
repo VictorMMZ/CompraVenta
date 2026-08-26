@@ -4,10 +4,12 @@ import { getDashboardData } from "../services/dashboardApi";
 import { useEffect, useState } from "react";
 import {createSeller} from "../services/sellerApi.js";
 import{Button} from "../components/Button.jsx";
+import { LoadingState } from "../components/LoadingState.jsx";
 
 export function Dashboard() {
 
   const [dashboardData, setDashboardData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [showSellerModal, setShowSellerModal] = useState(false);
   const [sellerForm, setSellerForm] = useState({
     name: "",
@@ -49,8 +51,15 @@ export function Dashboard() {
       })
       .catch((error) => {
         console.error("Error al obtener datos del dashboard:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []); 
+
+  if (isLoading) {
+    return <LoadingState message="Cargando panel de control..." />;
+  }
   
   return (
     <div className="dashboard">

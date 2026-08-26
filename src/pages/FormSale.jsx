@@ -4,6 +4,7 @@ import "../assets/css/formsale.css";
 import { getProducts } from '../services/productsApi.js';
 import { createSale } from '../services/salesApi.js';
 import { Button } from "../components/Button.jsx";
+import { LoadingState } from "../components/LoadingState.jsx";
 export function FormSale() {
   const [formData, setFormData] = useState({
     customer_id: "",
@@ -17,6 +18,7 @@ export function FormSale() {
   const [searchTerm, setSearchTerm] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
 
   useEffect(() => {
     getProducts()
@@ -25,6 +27,10 @@ export function FormSale() {
       })
       .catch((error) => {
         console.error("Error al obtener los productos:", error);
+        setProducts([]);
+      })
+      .finally(() => {
+        setIsLoadingProducts(false);
       });
   }, []);
 
@@ -107,6 +113,10 @@ export function FormSale() {
       console.error("Error al crear la venta:", error);
     });
   };
+
+  if (isLoadingProducts) {
+    return <LoadingState message="Cargando productos para venta..." />;
+  }
 
   return (
     <div className="form-sale-container">

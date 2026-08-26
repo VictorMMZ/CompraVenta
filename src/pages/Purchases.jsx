@@ -4,10 +4,12 @@ import { dateFormatter } from "../utils/dateformatter.js";
 import { PurchaseCard } from "../components/PurchaseCard.jsx";
 import "../assets/css/purchases.css";
 import { Button } from "../components/Button.jsx";
+import { LoadingState } from "../components/LoadingState.jsx";
 
 export function Purchase() {
   const today = new Date().toISOString().split("T")[0];
   const [purchases, setPurchases] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [activesearchTerm, setActiveSearchTerm] = useState(today);
   const [showModal, setShowModal] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
@@ -17,8 +19,19 @@ export function Purchase() {
     getPurchases()
       .then((data) => {
         setPurchases(data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener las compras:", error);
+        setPurchases([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
+
+  if (isLoading) {
+    return <LoadingState message="Cargando compras..." />;
+  }
 
 
   

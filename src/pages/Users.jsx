@@ -3,9 +3,11 @@ import '../assets/css/Users.css';
 import { getUsers, createUser, updateUser, deleteUser } from '../services/usersApi';
 import { Button } from '../components/Button.jsx';
 import { userRegex, validateByRegex } from '../utils/regexp.js';
+import { LoadingState } from '../components/LoadingState.jsx';
 
 export function Users() {
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [editShowModal, setEditShowModal] = useState(false);
   const [deleteShowModal, setDeleteShowModal] = useState(false);
@@ -60,13 +62,36 @@ export function Users() {
     return null;
   };
 
-  const reloadUsers = () => {
-    getUsers().then(setUsers);
+  const reloadUsers = async () => {
+    setIsLoading(true);
+    try {
+      const data = await getUsers();
+      setUsers(data);
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
+      setUsers([]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    getUsers().then(setUsers);
+    getUsers()
+      .then((data) => {
+        setUsers(data);
+      })
+      .catch((error) => {
+        console.error('Error al obtener usuarios:', error);
+        setUsers([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
+
+  if (isLoading) {
+    return <LoadingState message="Cargando usuarios..." />;
+  }
 
   return (
     <div className="users">

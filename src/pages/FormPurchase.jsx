@@ -4,6 +4,7 @@ import { getProducts } from "../services/productsApi.js";
 import { createPurchase } from "../services/purchasesApi.js";
 import { createProduct } from "../services/productsApi.js";
 import { getSellers } from "../services/sellerApi.js";
+import { LoadingState } from "../components/LoadingState.jsx";
 
 
 export function FormPurchase() {
@@ -17,8 +18,8 @@ export function FormPurchase() {
   const [products, setProducts] = useState([]); 
   const [sellers, setSellers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isLoadingProducts, setIsLoadingProducts] = useState(false);
-  const [isLoadingSellers, setIsLoadingSellers] = useState(false);
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
+  const [isLoadingSellers, setIsLoadingSellers] = useState(true);
   const [productsError, setProductsError] = useState("");
   const [sellersError, setSellersError] = useState("");
   const [showProductForm, setShowProductForm] = useState(false);
@@ -247,6 +248,10 @@ export function FormPurchase() {
       console.error("No se pudo crear la compra:", error.message);
     }
   };
+
+  if (isLoadingProducts || isLoadingSellers) {
+    return <LoadingState message="Cargando datos de compra..." />;
+  }
 
   return (
     <div className="form-purchase-container">
